@@ -1,0 +1,808 @@
+java programs.
+
+
+1. Write a Java program that implements Bubble sort algorithm for sorting in descending
+order and also shows the number of interchanges occurred for the given set of integers  
+
+
+public class BubbleSort {
+
+	void bubbleSort(int arr[])
+	{
+		int count=0;
+		int n=arr.length;
+		for(int i=0;i<n-1;i++) {
+			for(int j=0;j<n-i-1;j++) {
+				if(arr[j] < arr[j+1])
+				{
+					int temp=arr[j+1];
+				arr[j+1]=arr[j];
+				arr[j]=temp;
+				count++;
+			}
+		}
+		}
+		System.out.println("\nTotal Number Of Interchanges is "+count);
+	}
+    void printArray(int arr[]) {
+    	int n=arr.length;
+    	for(int i=0;i<n;i++)
+    		System.out.print(arr[i]+" ");
+    	System.out.println();
+		}
+    public static void main(String[] args) {
+    	BubbleSort ob = new BubbleSort();
+    	int arr[] = {2,54,33,20,47};
+    	ob.bubbleSort(arr);
+        System.out.println("Sorted Array");
+        ob.printArray(arr);
+    }
+}
+   
+2. Write a Java program to create an abstract class named Shape that contains two integers
+and an empty method named print Area (). Provide three classes named Rectangle,
+Triangle, and Circle such that each one of the classes extends the class Shape. Each one
+of the classes contains only the method print Area () that prints the area of the given
+shape      
+
+import java. util.*;
+abstract class Shape {
+int length, breadth, radius;
+Scanner input = new Scanner(System. in);
+abstract void printArea();
+}
+
+class Rectangle extends Shape{
+void printArea(){
+System.out.println("*** Finding the Area of Rectangle ***");
+System.out.print ("Enter length and breadth: ");
+length = input.nextInt( );
+breadth = input.nextInt( );
+System.out.println("The area of Rectangle is: " + length * breadth);
+}
+}
+
+class Triangle extends Shape {
+void printArea(){
+System.out.println("\n*** Finding the Area of Triangle ***");
+System.out.print("Enter Base And Height: ");
+length = input. nextInt( );
+breadth = input. nextInt( ) ;
+System.out.println("The area of Triangle is: " + (length * breadth) / 2);
+}
+}
+
+class Cricle extends Shape {
+void printArea( ) {
+System.out.println("\n*** Finding the Area of Cricle ***");
+System.out.print("Enter Radius: ");
+radius = input . nextInt();
+System.out.println("The area of Cricle is: " + 3.14f * radius * radius);
+
+}
+}
+
+public class AbstractClassExample {
+	public static void main(String[] args) {
+		Rectangle rec = new Rectangle( );
+		rec. printArea( ) ;
+		Triangle tri = new Triangle();
+		tri. printArea( ) ;
+		Cricle cri = new Cricle();
+		cri.printArea( );
+	}
+}
+
+
+3.  Write a Java program that implements Quick sort algorithm for sorting a list of names in
+ascending order      
+
+public class QuickSortOnStrings{
+	String names[];
+	int length;
+	
+	public static void main(String[] args) {
+	QuickSortOnStrings obj = new QuickSortOnStrings();
+	String stringsList[] = {"raja", "gouthu", "rani", "gouthami", "honey", "heyaansh", "hello"};
+	obj.sort(stringsList);
+	
+	for (String i : stringsList) {
+	System.out.print(i) ;
+	System.out.print(" ");
+	}
+	}
+	void sort (String array[]) {
+	if (array == null || array . length == 0) {
+	return;
+	}
+	this.names = array;
+	this.length = array.length;
+	quickSort (0, length-1);
+	}
+	void quickSort(int lowerIndex, int higherIndex) {
+
+	int i = lowerIndex;
+	int j = higherIndex;
+	String pivot = this. names[lowerIndex + (higherIndex - lowerIndex) / 2];
+	while (i <= j) {
+	while (this . names [i] . compareToIgnoreCase(pivot) < 0) {
+	i++;
+	}
+	while (this. names[j] . compareToIgnoreCase(pivot) > 0) {
+		j--;
+	}
+
+		if (i <= j) {
+		exchangeNames(i, j);
+		i++;
+		j--;
+		}
+	}
+		if (lowerIndex < j) {
+		quickSort (lowerIndex, j);
+		}
+		if(i < higherIndex) {
+		quickSort(i, higherIndex);
+		}
+	}
+		void exchangeNames (int i, int j) {
+		String temp = this. names [i];
+		this.names [i] = this . names[j];
+		this.names [j] = temp;
+}
+	}
+
+4.Write a Java program that implements a multi-thread application that has three threads.
+First thread generates random integer every 1 second and if the value is even, second
+thread computes the square of the number and prints. If the value is odd, the third thread      
+ 
+import java.util.Random;
+
+
+class RandomNumberThread extends Thread {
+    public void run() {
+   	 Random random = new Random();
+   	 for(int i=0;i<10;i++) {
+   	 int randomInteger = random.nextInt(100);
+   	 System.out.println("Random Integar generated:"+ randomInteger);
+   	 if((randomInteger%2)==0) {
+   		 SquareThread sThread =new SquareThread(randomInteger);
+   		 sThread.start();
+   	 }
+   	 else {
+   		 CubeThread cThread = new CubeThread(randomInteger);
+   		 cThread.start();
+   	 }
+   	 try {
+   		 Thread.sleep(1000);
+   	 }
+   	 catch (InterruptedException ex) {
+   		 System.out.println(ex);
+   	 }
+    }
+}
+}
+
+class SquareThread extends Thread {
+    int number;
+
+    SquareThread(int randomNumbern){
+   	 number=randomNumbern;
+    }
+    public void run() {
+   	 System.out.println("Square of "+number+"="+(number*number));
+    }    
+}
+
+class CubeThread extends Thread {
+    int number;
+    
+     CubeThread(int randomNumber) {
+   	 number = randomNumber;
+    }
+    public void run() {
+   	 System.out.println("Cube of "+number+"="+number*number*number);
+    }
+}    
+public class MultiThreadingTest{
+    public static void main(String args[]) {
+RandomNumberThread rnThread =new RandomNumberThread();
+rnThread.start();
+    }
+
+}
+   
+5.  Write a Java program to list all the files in a directory including the files present in all its
+subdirectories.      
+
+import java.util.Scanner;
+import java.io.*;
+
+public class ListingFiles {
+
+    public static void main(String[] args) {
+        String path =null;
+        Scanner sc =new Scanner(System.in);
+        System.out.print("Enter the root directory name:");
+        path=sc.next()+":\\";
+        File f_ref =new File(path);
+        if(!f_ref.exists()) {
+            //printLine();
+            System.out.println("Root direcory does not exists!");
+            //println();
+        }
+        else {
+            String ch="y";
+            while(ch.equalsIgnoreCase("y")) {
+                printFiles(path);
+                System.out.print("Do you want to open any sub-directory(Y/N): ");
+                ch=sc.next().toLowerCase();
+                if(ch.equalsIgnoreCase("y")) {
+                    System.out.print("Enter the sub-directory name:");
+                    path=path+"\\\\"+sc.next();
+                    File f_ref_2=new File(path);
+                    if(!f_ref_2.exists()){
+                        //printLine();
+                        System.out.print("The Sub-directory does not exists!");
+                        //printLine();
+                        int lastIndex =path.lastIndexOf("\\");
+                        path = path.substring(0,lastIndex);
+                    }
+                }
+            }
+        }
+        System.out.println("****** Program Closed *******");
+    }
+        // TODO Auto-generated method stub
+public static void printFiles(String path) {
+    System.out.println("Current Location"+path);
+    File f_ref = new File(path);
+    File[] fileslist = f_ref.listFiles( );
+    for (File file : fileslist) {
+    if (file. isFile( ))
+        System.out.println("-" + file.getName( ) );
+    else
+        System.out.println(">" + file.getName( ));
+    }
+}
+public static void printline() {
+
+System.out.println("---------------------------");
+}
+}
+
+
+
+6 . Write a Java program for the following: Create a doubly linked list of elements. Delete a
+given element from the above list. Display the contents of the list after deletion.   
+
+public class DLL{
+Node head;
+class Node{
+int data;
+Node prev;
+Node next;
+Node(int d) { data= d;}
+}
+
+public void push(int new_data)
+{
+Node new_Node=new Node(new_data);
+new_Node.next=head;
+new_Node.prev=null;
+if(head!=null)
+head.prev=new_Node;
+head=new_Node;
+}
+
+public void printlist(Node node)
+{
+Node last = null;
+while(node!=null) {
+System.out.print(node.data+" ");
+last=node;
+node=node.next;
+}
+System.out.println();
+}
+void deleteNode(Node del)
+{
+if(head==null || del==null){
+return;
+}
+
+if(head == del) {
+	head=del.next;
+}
+
+if(del.next !=null){
+del.next.prev=del.prev;
+}
+
+if(del.prev !=null) {
+	del.prev.next=del.next;
+}
+
+return;
+
+}
+
+public static void main(String[] args)
+{
+DLL dll=new DLL();
+dll.push(2);
+dll.push(4);
+dll.push(8);
+dll.push(10);
+System.out.print("Created DLL is: ");
+dll.printlist(dll.head);
+dll.deleteNode(dll.head);
+System.out.print("\nList after deleting first node:");
+dll.printlist(dll.head);
+dll.deleteNode(dll.head.next);
+System.out.println("\nList after Deleting Midddle Node:");
+dll.printlist(dll.head);
+}
+}
+     
+
+7. Write a Java program that loads names and phone numbers from a text file where the data
+is organized as one line per record and each field in a record are separated by a tab (\t). It
+takes a name or phone number as input and prints the corresponding other value from the
+hash table (hint: use hash tables).  
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
+public class HashTab
+{
+public static void main(String[] args)
+{
+HashTab prog11 = new HashTab();
+Hashtable<String, String>hashData = prog11.readFromFile("HashTab.txt");
+System.out.println("File data into Hashtable:\n"+hashData);
+prog11.printTheData(hashData, "vbit");
+prog11.printTheData(hashData, "123");
+prog11.printTheData(hashData, "----");
+}
+private void printTheData(Hashtable<String, String>hashData, String input)
+{
+String output = null;
+if(hashData != null)
+{
+Set<String> keys = hashData.keySet();
+if(keys.contains(input))
+
+{
+output = hashData.get(input);
+}
+else
+{
+Iterator<String> iterator = keys.iterator();
+while(iterator.hasNext()) {
+String key = iterator.next();
+String value = hashData.get(key);
+if(value.equals(input))
+{
+output = key;
+break;
+} } } }
+System.out.println("Input given:"+input);
+if(output != null)
+{
+System.out.println("Data found in HashTable:"+output);
+}
+else {
+System.out.println("Data not found in HashTable");
+} }
+private Hashtable<String, String>readFromFile(String fileName) {
+Hashtable<String, String> hashData = new Hashtable<String, String>();
+try {
+File f = new File("c:\\java\\"+fileName);
+BufferedReader br = new BufferedReader(new FileReader(f));
+String line = null;
+while((line = br.readLine()) != null) {
+String[] details = line.split("\t");
+hashData.put(details[0], details[0]);
+}
+} catch (FileNotFoundException e) {
+
+e.printStackTrace();
+} catch (IOException e) {
+e.printStackTrace(); }
+return hashData; } }       
+
+8.  Suppose that a table named Table.txt is stored in a text file. The first line in the file is the
+header, and the remaining lines correspond to rows in the table. The elements are
+separated by commas. 
+Write a java program to display the table using Labels in Grid
+Layout           
+
+import java.io.*;
+import java.util.*;
+import java.awt.*;
+import java.swing.*;
+
+class A extends JFrame {
+public A() {
+setSize(400, 400);
+setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+GridLayout g = new GridLayout(0, 3);
+setLayout(g);
+try {
+FileInputStream fin = new FileInputStream("D:\\java\\Table.txt");
+Scanner sc = new Scanner(fin).useDelimiter(",");
+String[] arrayList;
+String a;
+while (sc.hasNextLine()) {
+a = sc.nextLine();
+arrayList = a.split(",");
+for (String i : arrayList) {
+add(new JLabel(i));
+}
+}
+} catch (Exception ex) {
+}
+setDefaultLookAndFeelDecorated(true);
+//pack();
+setVisible(true);
+}
+}
+public class TableTest {
+public static void main(String[] args) {
+A a = new A();
+}
+}
+
+9.Write a Java program that handles all mouse events and shows the event name at the
+center of the window when a mouse event is fired (Use Adapter classes).
+
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.event.*;
+import java.awt.event.*;
+class MouseEventDemo extends JFrame implements MouseListener,MouseMotionListener 
+{
+// var 
+String  str=" ";
+JTextArea ta;
+Container c;
+int  x,y;
+
+public MouseEventDemo() 
+{
+// create conntent pane
+c=getContentPane();
+c.setLayout(new FlowLayout());
+// create a textarea and  set font to it
+ta=new JTextArea("click the mouse or move  it 5, 20");
+ta.setFont(new Font("Arial",Font.BOLD,30));
+// add textarea to  contentpane
+c.add(ta);
+//  add mouse listiner,mouse motion listener to textarea
+ta.addMouseListener(this);
+ta.addMouseMotionListener(this);
+
+}
+public void mouseClicked(MouseEvent  me)
+{
+// know which button of mouse is cliked
+int i=me.getButton();
+if(i==1)
+str+="Clicked Button:Left";
+else if(i==2)
+str+="clicked Button:Middle";
+else if(i==3)
+str+="cliked button:Right";
+this.display();
+}
+public void mouseEntered(MouseEvent me)
+{
+str+=" Mouse entered";
+this.display();
+}
+public void mouseExited(MouseEvent me)
+{
+ str+=" Mouse Exited";
+this.display();
+}
+public void mousePressed(MouseEvent me)
+{
+ x=me.getX();
+  y=me.getY();
+str+= "Mouse pressed at:" +x+"\t"+y;
+this.display();
+}
+public void mouseDragged(MouseEvent me)
+{
+  x=me.getX();
+  y=me.getY();
+str+= "Mouse Dragged at:" +x+"\t"+y;
+this.display();
+}
+public void mouseReleased(MouseEvent me)
+{
+x=me.getX();
+y=me.getY();
+str+= "Mouse Released at:" +x+"\t"+y;
+this.display();
+}
+
+public void mouseMoved(MouseEvent me)
+{
+x=me.getX();
+y=me.getY();
+str+= "Mouse Moved at:" +x+"\t"+y;
+this.display();
+}
+public void display()
+{
+ta.setText(str);
+str="";
+}
+public static void main(String args[])
+{
+// create the frame
+MouseEventDemo mes=new MouseEventDemo();
+mes.setSize(400,400);
+mes.setVisible(true);
+mes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+}}       
+
+  10. Write a  Java program that works as a simple calculator. Use a grid layout to arrange
+buttons for the digits and for the +, -,*, % operations. Add a text field to display the
+result. Handle any possible exceptions like divided by zero.
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+public class Calculator extends JFrame implements ActionListener
+{
+JTextField t1;
+JButton b1,b2,b3,b4,b5,b6,b7,b8,b9,b10, b11,b12,b13,b14,b15,b16;
+int x,y,z,i;
+String op;
+public Calculator()
+{
+GridLayout gl=new GridLayout(4,5); 
+setLayout(gl);
+t1 = new JTextField(10);
+b1=new JButton("1");
+b2=new JButton("2");
+b3=new JButton("3");
+b4=new JButton("4");
+b5=new JButton("5");
+b6=new JButton("6");
+b7=new JButton("7");
+b8=new JButton("8");
+b9=new JButton("9");
+b10=new JButton("0");
+b11=new JButton("+");
+b12=new JButton("-");
+b13=new JButton("*");
+b14=new JButton("/");
+b15=new JButton("=");
+b16=new JButton("C");
+add(b1);
+add(b2);
+add(b3);
+add(b4);
+add(b5);
+add(b6);
+add(b7);
+add(b8);
+add(b9);
+add(b10);
+add(b11);
+add(b12);
+add(b13);
+add(b14);
+add(b15);
+add(b16);
+add(t1);
+b1.addActionListener(this);
+b2.addActionListener(this);
+b3.addActionListener(this);
+b4.addActionListener(this);
+b5.addActionListener(this);
+b6.addActionListener(this);
+b7.addActionListener(this);
+b8.addActionListener(this);
+b9.addActionListener(this);
+b10.addActionListener(this);
+b11.addActionListener(this);
+b12.addActionListener(this);
+b13.addActionListener(this);
+b14.addActionListener(this);
+b15.addActionListener(this);
+b16.addActionListener(this);
+setSize(300,300);
+setVisible(true);
+setTitle("Calculator");
+}
+public void actionPerformed(ActionEvent ae)
+{
+if(ae.getActionCommand()=="1")
+t1.setText(t1.getText()+"1");
+if(ae.getActionCommand()=="2")
+t1.setText(t1.getText()+"2");
+if(ae.getActionCommand()=="3")
+t1.setText(t1.getText()+"3");
+if(ae.getActionCommand()=="4")
+t1.setText(t1.getText()+"4");
+if(ae.getActionCommand()=="5")
+t1.setText(t1.getText()+"5");
+if(ae.getActionCommand()=="6")
+t1.setText(t1.getText()+"6");
+if(ae.getActionCommand()=="7")
+t1.setText(t1.getText()+"7");
+if(ae.getActionCommand()=="8")
+t1.setText(t1.getText()+"8");
+if(ae.getActionCommand()=="9")
+t1.setText(t1.getText()+"9");
+if(ae.getActionCommand()=="0")
+t1.setText(t1.getText()+"0");
+if(ae.getActionCommand()=="+")
+{
+x=Integer.parseInt(t1.getText());
+t1.setText("");
+op="+";
+}
+if(ae.getActionCommand()=="-")
+{
+x=Integer.parseInt(t1.getText());
+t1.setText("");
+op="-";
+}
+if(ae.getActionCommand()=="*")
+{
+x=Integer.parseInt(t1.getText());
+t1.setText("");
+op="*";
+}
+if(ae.getActionCommand()=="/")
+{
+x=Integer.parseInt(t1.getText());
+t1.setText("");
+op="/";
+}
+if(ae.getActionCommand()=="=")
+{
+y=Integer.parseInt(t1.getText());
+if(op=="+")
+z=x+y;
+if(op=="-")
+z=x-y;
+if(op=="*")
+z=x*y;
+if(op=="/")
+z=x/y;
+t1.setText(String.valueOf(z));
+}
+if(ae.getActionCommand()=="C")
+{
+t1.setText("");
+}
+}
+public static void main(String args[])
+{
+Calculator  cal=new Calculator();
+			
+}
+}
+
+
+
+
+
+//week12
+// Write a Java program that correctly implements the producer – consumer problem using the
+//concept of interthread communication.
+
+
+//sourse code:
+
+class ItemQueue {
+	int item;
+	boolean valueSet = false;
+
+	synchronized int getItem()
+
+	{
+		while (!valueSet)
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				System.out.println("InterruptedException caught");
+			}
+		System.out.println("Consummed:" + item);
+		valueSet = false;
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			System.out.println("InterruptedException caught");
+		}
+		notify();
+		return item;
+	}
+
+	synchronized void putItem(int item) {
+		while (valueSet)
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				System.out.println("InterruptedException caught");
+			}
+		this.item = item;
+		valueSet = true;
+		System.out.println("Produced: " + item);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			System.out.println("InterruptedException caught");
+		}
+		notify();
+	}
+}
+
+class Producer implements Runnable{
+	ItemQueue itemQueue;
+	Producer(ItemQueue itemQueue){
+		this.itemQueue = itemQueue;
+		new Thread(this, "Producer").start();
+	}
+	public void run() {
+		int i = 0;
+		while(true) {
+			itemQueue.putItem(i++);
+		}
+	}
+}
+class Consumer implements Runnable{
+	
+	ItemQueue itemQueue;
+	Consumer(ItemQueue itemQueue){
+		this.itemQueue = itemQueue;
+		new Thread(this, "Consumer").start();
+	}
+	public void run() {
+		while(true) {
+			itemQueue.getItem();
+		}
+	}
+}
+
+class ProducerConsumer{
+	public static void main(String args[]) {
+		ItemQueue itemQueue = new ItemQueue();
+		new Producer(itemQueue);
+		new Consumer(itemQueue);
+		System.out.println("Press Control+c to exit");
+	}
+}
+
+
+
+//output:
+
+/*Press Control+c to exit
+Produced: 0
+Consummed:0
+Produced: 1
+Consummed:1
+Produced: 2
+Consummed:2
+Produced: 3
+Consummed:3
+Produced: 4
+Consummed:4
+Produced: 5
+Consummed:5
+Produced: 6
+Consummed:6
+Produced: 7 */
